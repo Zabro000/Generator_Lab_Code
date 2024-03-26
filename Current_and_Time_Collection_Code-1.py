@@ -7,8 +7,8 @@ import csv
 
 
 CurrentSensor = CurrentInput()
-TimeReading = 10 #seconds
-ReadingInterval = 0.25
+TimeReading = 30 #seconds
+ReadingInterval = 0.02
 CSVfile= "Generator A vs C.csv"
 
 
@@ -32,7 +32,7 @@ time.sleep(1)
 print("Second callibration: ", time.time() - Startingtime)
 Currentlist = []
 Secondlist = []
-print("The loop is starting")
+print(f"The loop is starting and it will run for {TimeReading} seconds.")
 print('\n')
 
 # Reassign time just so everything is accurate
@@ -43,11 +43,13 @@ while CurrentTime - Startingtime < TimeReading:
     Currentlist.append(CurrentSensor.getCurrent())
     Secondlist.append(time.time() - Startingtime)
     CurrentTime = time.time()
+    print(Currentlist[-1])
     time.sleep(ReadingInterval)
     
 
 
 CurrentSensor.close()
+print('\n')
 print(f"The reading is done,the length of the time(s) list is {len(Secondlist)} and the length of the current(A) list is {len(Currentlist)}")
 print("writing the data to a csv file, top row is current and bottom row is time")
 
